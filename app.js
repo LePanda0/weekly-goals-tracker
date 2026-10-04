@@ -231,8 +231,8 @@ $("#clearCell").addEventListener("click", () => {
   $("#cellNote").value = "";
   renderRatingButtons();
 });
-dialog.addEventListener("close", () => {
-  if (dialog.returnValue === "save" && editing) {
+$("#cellForm").addEventListener("submit", (e) => {
+  if (e.submitter?.value === "save" && editing) {
     const goal = getWeek(currentKey, true).goals[editing.gi];
     goal.ratings ||= {};
     goal.notes ||= {};
@@ -245,7 +245,6 @@ dialog.addEventListener("close", () => {
     render();
   }
   editing = null;
-  dialog.returnValue = "";
 });
 
 // ---------- history view ----------
