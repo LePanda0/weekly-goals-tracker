@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weekly Goals Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Weekly Goals</h1>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="week" role="tab">This week</button>
+      <button class="tab" data-view="history" role="tab">History</button>
+    </nav>
+    <div class="io">
+      <button id="exportBtn" class="ghost" title="Download a JSON backup">Export</button>
+      <label class="ghost button" title="Restore from a JSON backup">
+        Import<input id="importInput" type="file" accept="application/json" hidden>
+      </label>
+    </div>
+  </header>
+
+  <main>
+    <section id="weekView">
+      <div class="weeknav">
+        <button id="prevWeek" class="ghost" aria-label="Previous week">‹</button>
+        <div class="weeklabel">
+          <h2 id="weekTitle"></h2>
+          <span id="weekBadge" class="badge"></span>
+        </div>
+        <button id="nextWeek" class="ghost" aria-label="Next week">›</button>
+        <button id="todayBtn" class="ghost small">Today</button>
+      </div>
+
+      <form id="addGoalForm" class="addgoal">
+        <input id="goalInput" type="text" placeholder="Add a major goal for this week…" maxlength="140" autocomplete="off">
+        <button type="submit">Add goal</button>
+      </form>
+      <div id="emptyHint" class="empty" hidden>
+        <p>No goals for this week yet.</p>
+        <button id="copyLastWeek" class="ghost" hidden>Copy goals from previous week</button>
+      </div>
+
+      <div class="gridwrap">
+        <table id="grid" class="grid"></table>
+      </div>
+      <p class="hint">Click any cell to rate that day (1–5) and add a note. Click a goal name to rename it.</p>
+
+      <div class="panels">
+        <div class="panel">
+          <h3>Daily notes</h3>
+          <div id="dailyNotes" class="dailynotes"></div>
+        </div>
+        <div class="panel">
+          <h3>Weekly reflection</h3>
+          <textarea id="reflection" rows="7" placeholder="What went well? What will you change next week?"></textarea>
+          <div class="summary" id="weekSummary"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="historyView" hidden>
+      <h2>Previous weeks</h2>
+      <div id="historyList" class="history"></div>
+    </section>
+  </main>
+
+  <dialog id="cellDialog">
+    <form method="dialog" id="cellForm">
+      <h3 id="cellTitle"></h3>
+      <p id="cellSub" class="muted"></p>
+      <div class="ratings" id="ratingButtons"></div>
+      <textarea id="cellNote" rows="4" placeholder="Note for this day (optional)"></textarea>
+      <div class="dialogactions">
+        <button type="button" id="clearCell" class="ghost">Clear</button>
+        <span class="spacer"></span>
+        <button value="cancel" class="ghost">Cancel</button>
+        <button value="save" id="saveCell">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
